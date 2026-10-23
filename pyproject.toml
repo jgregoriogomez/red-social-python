@@ -1,0 +1,36 @@
+[project]
+name = "red-social"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "José Gregorio Gómez", email = "jgregoriogomez@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+red-social = "red_social:main"
+
+[build-system]
+requires = ["uv_build>=0.12.17,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-mock>=3.17.0",
+    "ruff>=0.17.1",
+]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["red_social*"]
+
+
+[tool.pytest.ini_options]
+testpaths = ["test"]
+pythonpath = ["."]
