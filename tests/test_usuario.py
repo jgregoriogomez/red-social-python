@@ -1,7 +1,6 @@
 import pytest
 
 
-
 def test_seguirse_a_si_mismo_lanza_error(ana):
     with pytest.raises(ValueError):
         ana.seguir(ana)

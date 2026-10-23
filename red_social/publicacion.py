@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import re
 from abc import ABC, abstractmethod
 
@@ -7,7 +9,7 @@ LIMITE_CARACTERES = 280
 
 class Publicacion (ABC):
 
-    def __init__ (self, autor, texto):
+    def __init__ (self, autor: Usuario, texto: str) ->None:
 
         if not isinstance (autor, Usuario):
             raise TypeError("El autor debe ser un usuario")
@@ -23,20 +25,24 @@ class Publicacion (ABC):
         self.me_gusta = 0  
 
     @staticmethod
-    def extraer_hashtags(texto):
-        return [hashtag.lower()
-                for hashtag in re.findall(r"#\w+", texto ,flags=re.UNICODE)]
+    def extraer_hashtags(texto: str) -> list[str]:
+        return list(
+             dict.fromkeys(
+                  hashtag.lower() 
+                  for hashtag in re.findall(
+                       r"#\w+", texto ,flags=re.UNICODE)))
+    
 
     @staticmethod
-    def validar_original(original):
+    def validar_original(original: Publicacion) -> None:
         if not isinstance (original, Publicacion):
             raise TypeError("El publicacion original ser una publicacion")
 
     @property
-    def hashtags(self):
+    def hashtags(self) -> list[str]:
         return self.extraer_hashtags(self.texto)
 
-    def dar_me_gusta(self):
+    def dar_me_gusta(self) -> None:
         self.me_gusta += 1
 
     @abstractmethod
@@ -59,7 +65,7 @@ class Respuesta(Publicacion):
             self.original = original
 
     def __str__(self):
-            return f"{self.autor.alias} \u21B5 {self.original.autor.alias}: {self.texto}"
+            return f"{self.autor.alias} \u21A9 {self.original.autor.alias}: {self.texto}"
 
 class Retweet(Publicacion):
     def __init__ (self, autor, original):

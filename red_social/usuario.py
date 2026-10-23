@@ -1,7 +1,7 @@
 class Usuario:
 
-    def __init__ (self, usuario, alias):
-        self.usuario = usuario
+    def __init__ (self, nombre, alias):
+        self.nombre = nombre
         if not alias.startswith("@"):
             alias = "@"+alias
 
@@ -28,12 +28,14 @@ class Usuario:
         return otro in self.seguidos
 
     def a_dict(self):
-        return {"nombre": self.nombre,
-                "alias":self.alias}
+        return {
+            "nombre": self.nombre,
+            "alias":self.alias
+        }
 
     def __str__(self):
         
-        return f"{self.usuario}({self.alias})"
+        return f"{self.nombre} ({self.alias})"
 
     def __eq__(self, otro):
 

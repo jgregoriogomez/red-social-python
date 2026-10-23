@@ -10,7 +10,7 @@ class RedSocial:
         self.usuarios = {}
         self.publicaciones= []
 
-    def añadir(self, usuario):
+    def anadir(self, usuario):
         if usuario.alias in self.usuarios:
             raise ValueError("El alias ya existe")
 
@@ -19,7 +19,7 @@ class RedSocial:
 
     def registrar (self, nombre, alias):
         usuario = Usuario(nombre, alias)
-        return self.añadir(usuario)
+        return self.anadir(usuario)
 
     def publicar (self, publicacion):
         self.publicaciones.append(publicacion)
@@ -33,14 +33,13 @@ class RedSocial:
         contador = Counter()
         for publicacion in self.publicaciones:
             contador.update(publicacion.hashtags)
-            print(publicacion.autor.alias, publicacion.hashtags)
             
         return contador.most_common(n)
 
     def mostrar_timeline(self, alias):
         usuario = self.usuarios[alias]
         publicaciones = self.timeline(usuario)
-        print(f"\nTimeline de {usuario.usuario} ({usuario.alias}):")
+        print(f"\nTimeline de {usuario}:")
         for publicacion in publicaciones:
             print(publicacion)
 
@@ -52,7 +51,7 @@ class RedSocial:
         red = cls()
         for datos_usuario in datos["usuarios"]:
             usuario = Usuario.desde_dict(datos_usuario)
-            red.añadir(usuario)
+            red.anadir(usuario)
         for quien_sigue, a_quien in datos["seguimientos"]:
             seguidor = red.usuarios[quien_sigue]
             seguido = red.usuarios[a_quien]
@@ -72,5 +71,8 @@ class RedSocial:
 
     def __getitem__(self, alias):
         return self.usuarios[alias]
+
+    def __delitem__(self, alias):
+        del self.usuarios[alias]
         
     

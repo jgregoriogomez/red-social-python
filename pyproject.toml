@@ -9,8 +9,7 @@ authors = [
 requires-python = ">=3.12"
 dependencies = []
 
-[project.scripts]
-red-social = "red_social:main"
+
 
 [build-system]
 requires = ["uv_build>=0.12.17,<0.13.0"]
@@ -32,5 +31,5 @@ include = ["red_social*"]
 
 
 [tool.pytest.ini_options]
-testpaths = ["test"]
+testpaths = ["tests"]
 pythonpath = ["."]

@@ -1,13 +1,15 @@
 import pytest
+
 from red_social.publicacion import Publicacion
+
 
 @pytest.mark.parametrize("texto, esperado", 
                          [("Hola #Python", ["#python"]),
                           ("#python #pytest", ["#python", "#pytest"]),
                           ("Hola mundo", []),
-                          ("#Python #PYTHON", ["#python", "#python"]),])
+                          ("#Python #PYTHON", ["#python"]),])
 def test_extraer_hashtags(texto, esperado):
-    Publicacion.extraer_hashtags(texto) == esperado
+    assert Publicacion.extraer_hashtags(texto) == esperado
 
 @pytest.mark.parametrize("texto", ["", "  ", "a" *281,],)
 def test_texto_invalido_lanza_error(ana, texto):
