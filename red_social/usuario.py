@@ -1,6 +1,6 @@
 class Usuario:
 
-    def __init__ (self, nombre, alias):
+    def __init__(self, nombre, alias):
         self.nombre = nombre
         if not alias.startswith("@"):
             alias = "@"+alias
@@ -16,7 +16,7 @@ class Usuario:
     def numero_seguidos(self):
         return len(self.seguidos)
     
-    def seguir (self, otro):
+    def seguir(self, otro):
         if self == otro:
             raise ValueError("Un usuario no puede seguirse a si mismo")
         
@@ -24,7 +24,7 @@ class Usuario:
             raise ValueError("El usuario ya sigue a esta persona")
         self.seguidos.append(otro)
 
-    def sigue_a (self, otro): 
+    def sigue_a(self, otro): 
         return otro in self.seguidos
 
     def a_dict(self):

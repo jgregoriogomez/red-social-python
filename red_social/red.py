@@ -6,7 +6,7 @@ from .usuario import Usuario
 
 class RedSocial:
 
-    def __init__ (self):
+    def __init__(self):
         self.usuarios = {}
         self.publicaciones= []
 
@@ -17,19 +17,19 @@ class RedSocial:
         self.usuarios[usuario.alias] =usuario 
         return usuario
 
-    def registrar (self, nombre, alias):
+    def registrar(self, nombre, alias):
         usuario = Usuario(nombre, alias)
         return self.anadir(usuario)
 
-    def publicar (self, publicacion):
+    def publicar(self, publicacion):
         self.publicaciones.append(publicacion)
         return publicacion
 
-    def timeline (self, usuario):
+    def timeline(self, usuario):
         return [publicacion for publicacion in reversed(self.publicaciones)
                 if usuario.sigue_a(publicacion.autor) and publicacion.autor != usuario]
 
-    def tendencias (self, n=3):
+    def tendencias(self, n=3):
         contador = Counter()
         for publicacion in self.publicaciones:
             contador.update(publicacion.hashtags)
@@ -41,7 +41,7 @@ class RedSocial:
         publicaciones = self.timeline(usuario)
         print(f"\nTimeline de {usuario}:")
         for publicacion in publicaciones:
-            print(publicacion)
+            print(f"  {publicacion}")
 
     @classmethod
     def desde_json(cls, ruta):

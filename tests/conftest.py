@@ -1,5 +1,6 @@
 import pytest
 
+from red_social.publicacion import Tweet
 from red_social.red import RedSocial
 from red_social.usuario import Usuario
 
@@ -13,10 +14,15 @@ def luis():
     return Usuario("Luis","@luis")
 
 @pytest.fixture
+def tweet(ana):
+    return Tweet(ana, "Hola a todos #python #pytest")
+
+@pytest.fixture
 def red(ana, luis):
     marta = Usuario("Marta","@marta")
     red_social = RedSocial()
-    red_social.anadir(ana)
-    red_social.anadir(luis)
-    red_social.anadir(marta)
+    red_social.registrar(ana.nombre, ana.alias)
+    red_social.registrar(luis.nombre, luis.alias)
+    red_social.registrar(marta.nombre, marta.alias)
+    red_social["@luis"].seguir(red_social["@ana"])
     return red_social

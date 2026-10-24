@@ -7,11 +7,11 @@ from red_social.usuario import Usuario
 
 LIMITE_CARACTERES = 280
 
-class Publicacion (ABC):
+class Publicacion(ABC):
 
-    def __init__ (self, autor: Usuario, texto: str) ->None:
+    def __init__(self, autor: Usuario, texto: str) ->None:
 
-        if not isinstance (autor, Usuario):
+        if not isinstance(autor, Usuario):
             raise TypeError("El autor debe ser un usuario")
         
         if not texto or not texto.strip():
@@ -51,7 +51,7 @@ class Publicacion (ABC):
 
 class Tweet(Publicacion):
 
-    def __init__ (self, autor, texto):
+    def __init__(self, autor, texto):
         super().__init__(autor, texto)
 
     def __str__(self):
@@ -59,7 +59,7 @@ class Tweet(Publicacion):
 
 
 class Respuesta(Publicacion):
-    def __init__ (self, autor, texto, original):    
+    def __init__(self, autor, texto, original):    
             Publicacion.validar_original(original)
             super().__init__(autor, texto)
             self.original = original
@@ -68,7 +68,7 @@ class Respuesta(Publicacion):
             return f"{self.autor.alias} \u21A9 {self.original.autor.alias}: {self.texto}"
 
 class Retweet(Publicacion):
-    def __init__ (self, autor, original):
+    def __init__(self, autor, original):
         Publicacion.validar_original(original)
         super().__init__(autor, original.texto)
         self.original = original  
